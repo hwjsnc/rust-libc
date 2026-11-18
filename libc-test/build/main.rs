@@ -4130,6 +4130,7 @@ fn test_linux(t: &Target) {
             "linux/falloc.h",
             "linux/filter.h",
             "linux/fs.h",
+            "linux/fsverity.h",
             "linux/futex.h",
             "linux/genetlink.h",
             "linux/if.h",
@@ -5079,6 +5080,9 @@ fn test_linux(t: &Target) {
             ("iwreq", "ifr_ifrn") => true,
             // the `key` field is a zero-sized array
             ("iw_encode_ext", "key") => true,
+            // the `digest` field is a zero-sized array
+            ("fsverity_digest", "digest") => true,
+            ("fsverity_formatted_digest", "digest") => true,
             // the `tcpi_snd_rcv_wscale` map two bitfield fields stored in a u8
             ("tcp_info", "tcpi_snd_rcv_wscale") => true,
             // glibc 2.44 made these bitfields of a u32
@@ -5150,6 +5154,8 @@ fn test_linux(t: &Target) {
         "fanotify_event_info_fid" => true,
         "cmsghdr" => true,
         "bcm_msg_head" => true,
+        "fsverity_digest" => true,
+        "fsverity_formatted_digest" => true,
 
         // FIXME(linux): the call ABI of max_align_t is incorrect on these platforms:
         "max_align_t" if x86_32 => true,
